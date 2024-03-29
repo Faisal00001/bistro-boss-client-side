@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../providers/AuthProviders';
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/";
     const { signIn } = useContext(AuthContext)
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -28,6 +31,7 @@ const Login = () => {
                         popup: 'animate__animated animate__fadeOutUp'
                     }
                 });
+                navigate(from, { replace: true });
             })
     }
     const handleValidateCaptcha = (e) => {
@@ -71,7 +75,7 @@ const Login = () => {
                         </div>
                         <div className="form-control mt-6">
                             {/* TODO: apply disabled for re captcha */}
-                            <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
+                            <input disabled={false} className="btn btn-primary" type="submit" value="Login" />
                         </div>
 
                     </form>
