@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../providers/AuthProviders';
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
@@ -17,6 +18,16 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user
+                console.log(user)
+                Swal.fire({
+                    title: 'User Login Successful.',
+                    showClass: {
+                        popup: 'animate__animated animate__fadeInDown'
+                    },
+                    hideClass: {
+                        popup: 'animate__animated animate__fadeOutUp'
+                    }
+                });
             })
     }
     const handleValidateCaptcha = (e) => {
@@ -56,17 +67,13 @@ const Login = () => {
                             <label className="label">
                                 <LoadCanvasTemplate />
                             </label>
-                            <input onBlur={handleValidateCaptcha} type="text" name="captcha" placeholder="Type the text above" className="input input-bordered" required />
-                            <button className='btn btn-outline btn-xs mt-2'>Validate</button>
-
+                            <input onBlur={handleValidateCaptcha} type="text" name="captcha" placeholder="Type the captcha above" className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
                             {/* TODO: apply disabled for re captcha */}
-                            <input disabled={false} className="btn btn-primary" type="submit" value="Login" />
+                            <input disabled={disabled} className="btn btn-primary" type="submit" value="Login" />
                         </div>
-                        <div className="form-control mt-6">
-                            <input className="btn btn-primary" type="submit" value="Login" />
-                        </div>
+
                     </form>
                     <p><small>New Here? <Link to="/signup">Create an account</Link> </small></p>
                 </div>
