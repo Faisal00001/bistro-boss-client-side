@@ -1,7 +1,11 @@
 import {
     createBrowserRouter
 } from "react-router-dom";
+
+import Dashboard from "../Layout/DashBoard";
 import Main from "../Layout/Main";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import Cart from "../Pages/Dashboard/Cart/Cart";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Menu from "../Pages/Menu/Menu";
@@ -41,6 +45,22 @@ const router = createBrowserRouter([
             }
         ]
     },
+    {
+        path: 'dashboard',
+        element: <PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+        children: [
+            {
+                path: 'cart',
+                element: <Cart></Cart>
+            },
+            // admin routes
+            {
+                path: 'users',
+                element: <AllUsers></AllUsers>
+            }
+
+        ]
+    }
 ]);
 
 export default router;

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LoadCanvasTemplate, loadCaptchaEnginge, validateCaptcha } from 'react-simple-captcha';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 import { AuthContext } from '../../providers/AuthProviders';
 const Login = () => {
     const [disabled, setDisabled] = useState(true);
@@ -79,9 +80,14 @@ const Login = () => {
                         </div>
 
                     </form>
-                    <p><small>New Here? <Link to="/signup">Create an account</Link> </small></p>
+                    <p className='text-center'><small>New Here? <Link to="/signup">Create an account</Link> </small></p>
+                    <div className='flex justify-center'>
+                        <SocialLogin></SocialLogin>
+                    </div>
                 </div>
+
             </div>
+
         </div>
     );
 };
